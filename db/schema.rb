@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_10_032642) do
+ActiveRecord::Schema.define(version: 2022_07_10_062855) do
 
   create_table "stocks", force: :cascade do |t|
     t.integer "code", limit: 6
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2022_07_10_032642) do
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
     t.index ["code"], name: "index_stocks_on_code"
     t.index ["name"], name: "index_stocks_on_name", unique: true
   end
