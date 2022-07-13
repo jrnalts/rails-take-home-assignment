@@ -1,0 +1,8 @@
+<h2><%= @track_list.title %></h2>
+
+<%= form_for(@track_list_stock) do |f| %>
+  <%= f.text_field :stock_id, placeholder: '輸入股號', name: 'stock_id' %>
+  <%= f.submit '新增追蹤股' %>
+<% end %>
+
+<%= link_to('回到追蹤清單', track_lists_path) %>

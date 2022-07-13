@@ -1,0 +1,32 @@
+<%= link_to '點我建立新的追蹤清單', new_track_list_path %>
+
+<% if @track_lists.present? %>
+  <% @track_lists.each_with_index do |track_list, index| %>
+    <div style="display: flex;">
+      <div style="display: flex; align-items: center;">
+        <h3><%= track_list.title %></h3>
+        &nbsp;
+        <%= link_to '編輯清單名稱', edit_track_list_path(track_list) %>
+        &nbsp;
+        <%= link_to '刪除', track_list_path(track_list), method: 'delete' %>
+      </div>
+    </div>
+    <ul>
+      <% track_list.stocks.each do |stock| %>
+        <li>
+          <%= stock.code %>
+          <%= stock.name %>
+          <%= link_to '刪除', track_list_stock_path(track_list, stock.id), method: 'delete' %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to '點我新增追蹤股', new_track_list_stock_path(track_list) %>
+  <% end %>
+<% else %>
+  <h2>你還沒有建立股票清單哦！</h2>
+<% end %>
+
+<br>
+<br>
+<br>
+<%= link_to('登出', sign_out_users_path, method: 'delete') %>
