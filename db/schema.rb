@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_10_062855) do
+ActiveRecord::Schema.define(version: 2022_07_13_005711) do
 
   create_table "stocks", force: :cascade do |t|
     t.integer "code", limit: 6
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2022_07_10_062855) do
     t.datetime "deleted_at"
     t.index ["code"], name: "index_stocks_on_code"
     t.index ["name"], name: "index_stocks_on_name", unique: true
+  end
+
+  create_table "track_list_stocks", force: :cascade do |t|
+    t.integer "track_list_id", null: false
+    t.integer "stock_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id"], name: "index_track_list_stocks_on_stock_id"
+    t.index ["track_list_id"], name: "index_track_list_stocks_on_track_list_id"
   end
 
   create_table "track_lists", force: :cascade do |t|
@@ -39,4 +48,6 @@ ActiveRecord::Schema.define(version: 2022_07_10_062855) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "track_list_stocks", "stocks"
+  add_foreign_key "track_list_stocks", "track_lists"
 end
