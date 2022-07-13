@@ -7,10 +7,11 @@ class User < ApplicationRecord
   before_create :encrypt_password
 
   def self.login(*args)
-    if args[:email] && args[:password]
+    arg = args.first
+    if arg[:email] && arg[:password]
       find_by(
-        email: args[:email],
-        password: EncryptionService.decrypt(args[:password])
+        email: arg[:email],
+        password: arg[:password]
       )
     end
   end
