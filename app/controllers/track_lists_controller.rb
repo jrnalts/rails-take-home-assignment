@@ -2,10 +2,11 @@
 
 class TrackListsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_track_list, only: [:edit, :update, :destroy]
+  before_action :find_track_list, only: %i[edit update destroy serialize]
+  after_action :reset_track_list_serial, only: %i[destroy]
 
   def index
-    @track_lists = user_track_lists.includes(:stocks)
+    @track_lists = user_track_lists.order_with_serial.includes(:stocks)
   end
 
   def new
@@ -13,7 +14,11 @@ class TrackListsController < ApplicationController
   end
 
   def create
+    serials = user_track_lists.order_with_serial.pluck(:serial)
     @track_list = user_track_lists.new(track_list_params)
+
+    # If user already has track lists, give serial after the last one
+    @track_list.serial = serials.max + 1 unless serials.blank?
 
     if @track_list.save
       redirect_to track_lists_path
@@ -34,6 +39,26 @@ class TrackListsController < ApplicationController
 
   def destroy
     @track_list.destroy if @track_list
+
+    redirect_to track_lists_path, notice: "已刪除 #{@track_list.title}!"
+  end
+
+  def serialize
+    case params[:position]
+    when 'up'
+      replaced = user_track_lists.find_by(serial: @track_list.serial - 1)
+      new_serial = replaced.serial
+    when 'down'
+      replaced = user_track_lists.find_by(serial: @track_list.serial + 1)
+      new_serial = replaced.serial
+    end
+    
+    # Change serial of track list
+    replaced.serial = @track_list.serial
+    @track_list.serial = new_serial
+
+    replaced.save!
+    @track_list.save!
     redirect_to track_lists_path
   end
 
@@ -45,5 +70,12 @@ class TrackListsController < ApplicationController
 
   def track_list_params
     params.require(:track_list).permit(:title)
+  end
+
+  def reset_track_list_serial
+    lists_with_serial = user_track_lists.order_with_serial.where('serial > ?', @track_list.serial)
+    return if lists_with_serial.blank?
+
+    lists_with_serial.update_all('serial = serial - 1')
   end
 end

@@ -1,7 +1,7 @@
 <%= link_to '點我建立新的追蹤清單', new_track_list_path %>
 
 <% if @track_lists.present? %>
-  <% @track_lists.each_with_index do |track_list, index| %>
+  <% @track_lists.each do |track_list| %>
     <div style="display: flex;">
       <div style="display: flex; align-items: center;">
         <h3><%= track_list.title %></h3>
@@ -9,6 +9,17 @@
         <%= link_to '編輯清單名稱', edit_track_list_path(track_list) %>
         &nbsp;
         <%= link_to '刪除', track_list_path(track_list), method: 'delete' %>
+      </div>
+
+      <div style="display: flex; align-items: center;">
+        <% unless track_list.serial == 0 %>
+          &nbsp;
+          <%= link_to '上移', serialize_track_list_path(track_list, position: :up), method: :post %>
+        <% end %>
+        <% unless track_list.serial == (@track_lists.size - 1) %>
+          &nbsp;
+          <%= link_to '下移', serialize_track_list_path(track_list, position: :down), method: :post %>
+        <% end %>
       </div>
     </div>
     <ul>
@@ -21,6 +32,8 @@
       <% end %>
     </ul>
     <%= link_to '點我新增追蹤股', new_track_list_stock_path(track_list) %>
+    <br>
+    --------------------------------------------------------
   <% end %>
 <% else %>
   <h2>你還沒有建立股票清單哦！</h2>

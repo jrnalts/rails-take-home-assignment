@@ -13,5 +13,9 @@ Rails.application.routes.draw do
 
   resources :track_lists do
     resources :stocks, controller: :track_list_stocks, param: :stock_id, only: [:new, :create, :destroy]
+
+    member do
+      post :serialize
+    end
   end
 end

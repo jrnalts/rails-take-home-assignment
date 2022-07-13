@@ -13,11 +13,18 @@ class TrackListStocksController < ApplicationController
     stock = Stock.available.find_by(code: params[:stock_id])
     return redirect_to new_track_list_stock_path, notice: '股票代號不存在' if stock.blank?
 
-    @track_list_stock = TrackListStock.new(track_list_id: track_list_id, stock_id: stock.id)
-
-    redirect_to track_lists_path if @track_list_stock.save
-  rescue ActiveRecord::RecordNotUnique
-    redirect_to new_track_list_stock_path, notice: '已新增過這支股票'
+    track_list_stock = TrackListStock.find_by(
+      track_list_id: track_list_id,
+      stock_id: stock.id
+    )
+    if track_list_stock.present?
+      redirect_to new_track_list_stock_path, notice: '已新增過這支股票'
+    else
+      @track_list_stock = TrackListStock.new(
+        track_list_id: track_list_id,
+        stock_id: stock.id)
+      redirect_to track_lists_path if @track_list_stock.save
+    end
   end
 
   def destroy

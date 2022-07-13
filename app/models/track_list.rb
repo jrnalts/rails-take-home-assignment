@@ -5,4 +5,6 @@ class TrackList < ApplicationRecord
   has_many :stocks, through: :track_list_stocks
 
   validates :title, presence: true
+
+  scope :order_with_serial, -> { order(serial: :asc) }
 end
