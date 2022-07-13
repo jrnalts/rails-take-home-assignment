@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_005711) do
+ActiveRecord::Schema.define(version: 2022_07_13_135808) do
 
   create_table "stocks", force: :cascade do |t|
     t.integer "code", limit: 6
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2022_07_13_005711) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "serial", default: 0
     t.index ["user_id"], name: "index_track_lists_on_user_id"
   end
 
