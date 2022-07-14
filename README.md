@@ -24,7 +24,6 @@ ref: https://guides.rubyonrails.org/security.html
 ```ruby
 rails db:seed
 ```
-ref: /Users/jvd/Desktop/rails-take-home-assignment/db/seeds.rb
 
 3. 透過 TrackList 的 serial 欄位的值來調整追蹤清單的順序，若配合 js 套件或前端框架實作拖拉功能，可以更符合使用者直覺操作
 
