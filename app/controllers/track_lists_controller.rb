@@ -46,19 +46,11 @@ class TrackListsController < ApplicationController
   def serialize
     case params[:position]
     when 'up'
-      replaced = user_track_lists.find_by(serial: @track_list.serial - 1)
-      new_serial = replaced.serial
+      @track_list.serial_up
     when 'down'
-      replaced = user_track_lists.find_by(serial: @track_list.serial + 1)
-      new_serial = replaced.serial
+      @track_list.serial_down
     end
-    
-    # Change serial of track list
-    replaced.serial = @track_list.serial
-    @track_list.serial = new_serial
 
-    replaced.save!
-    @track_list.save!
     redirect_to track_lists_path
   end
 
