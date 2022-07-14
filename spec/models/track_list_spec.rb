@@ -14,12 +14,12 @@ RSpec.describe TrackList, type: :model do
   end
 
   describe 'user track lists order with serial' do
-    let!(:first) { create(:track_list, serial: 3) }
-    let!(:second) { create(:track_list, serial: 1) }
-    let!(:third) { create(:track_list, serial: 2) }
+    let!(:first_track_list) { create(:track_list, serial: 3) }
+    let!(:second_track_list) { create(:track_list, serial: 1) }
+    let!(:third_track_list) { create(:track_list, serial: 2) }
 
     subject { described_class.order_with_serial }
 
-    it { expect(subject).to eq [second, third, first] }
+    it { expect(subject).to eq [second_track_list, third_track_list, first_track_list] }
   end
 end

@@ -22,7 +22,8 @@ class TrackListStocksController < ApplicationController
     else
       @track_list_stock = TrackListStock.new(
         track_list_id: track_list_id,
-        stock_id: stock.id)
+        stock_id: stock.id
+      )
       redirect_to track_lists_path if @track_list_stock.save
     end
   end
@@ -39,7 +40,10 @@ class TrackListStocksController < ApplicationController
   end
 
   def find_track_list_stock
-    @track_list_stock = TrackListStock.find_by(track_list_id: track_list_id, stock_id: params[:stock_id])
+    @track_list_stock = TrackListStock.find_by(
+      track_list_id: track_list_id,
+      stock_id: params[:stock_id]
+    )
   end
 
   def track_list_id

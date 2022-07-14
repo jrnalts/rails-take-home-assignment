@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :track_lists do
-    resources :stocks, controller: :track_list_stocks, param: :stock_id, only: [:new, :create, :destroy]
+    resources :stocks, controller: :track_list_stocks, param: :stock_id, only: %i[new create destroy]
 
     member do
       post :serialize
