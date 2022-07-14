@@ -1,0 +1,6 @@
+<%= form_for(@track_list) do |f| %>
+  <%= f.text_field :title, placeholder: '輸入追蹤清單名稱' %>
+  <%= f.submit '建立追蹤清單' %>
+<% end %>
+
+<%= link_to('回到追蹤清單', track_lists_path) %>

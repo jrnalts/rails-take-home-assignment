@@ -1,0 +1,6 @@
+<%= form_for(@track_list) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.submit '更新追蹤清單名稱' %>
+<% end %>
+
+<%= link_to('回到追蹤清單', track_lists_path) %>
