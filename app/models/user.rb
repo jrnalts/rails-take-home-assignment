@@ -7,6 +7,8 @@ class User < ApplicationRecord
   before_create :encrypt_password
 
   def self.login(params)
+    return if params.nil?
+
     if params[:email] && params[:password]
       user = find_by(email: params[:email])
 
