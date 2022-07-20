@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
   helper_method :current_user
 
   private
@@ -17,5 +19,11 @@ class ApplicationController < ActionController::Base
 
   def user_track_lists
     current_user.track_lists
+  end
+
+  def not_found
+    render file: "#{Rails.root}/public/404.html",
+           status: 404,
+           layout: false
   end
 end
