@@ -43,6 +43,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 5.1'
 
   # Debug
   gem 'pry', '~> 0.14.1'

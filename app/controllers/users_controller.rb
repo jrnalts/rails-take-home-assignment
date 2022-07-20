@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    flash[:notice] = '會員帳號已存在' if @user.present?
+    
     if @user.save
       sign_in_user(@user)
       redirect_to track_lists_path, notice: '會員註冊成功'

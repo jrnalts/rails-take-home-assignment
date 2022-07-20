@@ -14,6 +14,7 @@ rails new statementdog-backend-take-home-project --database=sqlite3 -M -C -T --s
 ### Test with Rspec:
   - stock
   - track list
+  - user
 
 ---
 
@@ -37,3 +38,5 @@ rails db:seed
     - 順序調整（上移/下移）
 
   註：Stock model 的 CRUD 與此功能關聯性較低，因此未撰寫相關測試。
+
+6. 會員相關驗證：目前僅測試 email 欄位是否帶入，以及 password 是否符合加密。可以朝向新增驗證 email 是否有符合信箱格式，或者 password 是否需特殊字元與數量限制。
